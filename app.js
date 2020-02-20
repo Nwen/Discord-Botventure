@@ -2,15 +2,13 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 
 const config = require("./config.json");
-
 bot.on('ready', () => {
-    console.log('Doomsday protocole initiated\nWHAT HAVE I DONE');
-    bot.user.setActivity('the world burn', { type: 'WATCHING' }).catch(console.error);
+    console.log('Botventure initialised');
 })
 
 bot.on('message', message => {
     if (message.content[0] === config.prefix) {
-        let args = message.content.substring(PREFIX.length).split(" ");
+        let args = message.content.substring(config.prefix.length).split(" ");
 
         previousMessage = message;
 
@@ -24,3 +22,5 @@ bot.on('message', message => {
         }
     }
 });
+
+bot.login(config.token);
