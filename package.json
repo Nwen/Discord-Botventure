@@ -1,0 +1,12 @@
+{
+  "name": "botventure",
+  "version": "0.0.0",
+  "description": "Botventure",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  }
+}
