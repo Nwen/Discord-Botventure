@@ -32,8 +32,23 @@
     <Content Include="config.json">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="modules\CommandHandler.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="modules\commands\Ping.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="modules\CommandTable.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="package.json" />
     <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="modules\" />
+    <Folder Include="modules\classes\" />
+    <Folder Include="modules\commands\" />
+    <Folder Include="ressources\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
 </Project>
