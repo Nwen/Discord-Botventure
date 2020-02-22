@@ -2,3 +2,4 @@ node_modules
 config.json
 bin
 obj
+modules/Classes/Entity.js
