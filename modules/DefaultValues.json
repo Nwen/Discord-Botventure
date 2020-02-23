@@ -1,0 +1,10 @@
+{
+    "player":{
+        "maxHealth" : 100,
+        "maxMana" : 100,
+        "strength" : 10,
+        "intelligence" : 10,
+        "stamina" : 10,
+        "charisma" : 10
+    }
+}
