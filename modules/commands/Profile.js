@@ -8,13 +8,20 @@ const ProfileCommand = async function(message){
 
 function DisplayProfile(message, player){
     let embed = new Discord.RichEmbed();
+    console.log(player);
 
     if(player != null){
+        let msgStats = `:drop_of_blood: : ${player.getHealth()} / ${player.getMaxHealth()}  |  **${100*player.getHealth()/player.getMaxHealth()} %**\n
+                        :droplet: : ${player.getMana()} / ${player.getMaxMana()}  |  **${100*player.getMana()/player.getMaxMana()} %**`;
+
+        let msgCara = `:muscle: : ${player.getStrength()} | :brain: : ${player.getIntelligence()}\n
+                       :leg: : ${player.getStamina()}  | :speaking_head: : ${player.getCharisma()}`;
         embed.setTitle(player.getName());
-        embed.addField("Health", player.getHealth());
+        embed.addField("**--- Statistiques vitales ---**",msgStats, false);
+        embed.addField("**--- Caractéristiques ---**", msgCara, false);
     } else {
-        embed.setTitle("Couldn't find your character");
-        embed.addField("Please consider join the game");
+        embed.setTitle("Nous n'avons pas pu trouver votre personnage");
+        embed.addField("Si ce n'est pas déjà fait, veuillez rejoindre la partie","`:join <Name>`");
     }
 
 

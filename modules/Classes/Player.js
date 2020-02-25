@@ -60,6 +60,15 @@ class Player{
     }
 
     /**
+     * Returns this Entity's maximum mana value.
+     * @returns {Number} - How much mana this Entity can have.
+     */
+    getMaxMana(){
+        return this.#maxMana;
+    }
+
+
+    /**
      * Returns the player's id
      * @returns {Number} - The player's id
      */
@@ -84,10 +93,18 @@ class Player{
     }
 
     /**
+     * Returns the current amount of mana this Entity has.
+     * @returns {Number} - The current amount of mana this Entity has.
+     */
+    getMana(){
+        return this.#mana;
+    }
+
+    /**
      * Returns the player's base strength.
      * @returns {Number} - Base strength points the player have.
      */
-    getStrenth() {
+    getStrength() {
         return this.#strength;
     }
 
@@ -124,7 +141,7 @@ class Player{
 
     /**
      * Removes the specified amount of points from the entity's health. If the health of the entity is below 0, kill the entity.
-     * Note: If points is negative, then addScore is called.
+     * * Note: If points is negative, then addScore is called.
      * @see addHealthPoints
      * @param points - The amount of health points to remove. Must be a Number.
      */
@@ -142,7 +159,7 @@ class Player{
 
     /**
      * add the specified amount of points from the entity's health. If the health is higher than the maximum, set the health at the limit
-     * Note: If points is negative, then removeScore is called.
+     * * Note: If points is negative, then removeScore is called.
      * @see removeHealthPoints
      * @param points - The amount of health points to add. Must be a Number.
      */

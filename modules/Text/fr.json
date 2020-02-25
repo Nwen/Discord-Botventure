@@ -1,0 +1,13 @@
+{
+    "commands":{
+        "help":{
+            "general": "**Voici la liste des commandes :**\nCertaines commandes peuvent prendre des arguments qui peuvent être <obligatoires> ou [optionnels].\n```join <nom>\nprofile\nping```",
+            "commands":{
+                "join": "Permet de créer un personnage et de rejoindre la Botventure. :tada:\nVous devez entrer le nom de votre personnage en argument de la commande.\n `:join <Nom>`",
+                "profile": "Permet de connaitres les statistiques de votre personnage.\n:drop_of_blood: : Vie | :droplet: : Mana | :muscle: : Force | :brain: Intelligence | :leg: : Endurance | :speaking_head: : Charisme",
+                "ping": "Permet de voir si le Bot est en ligne."
+            }
+        }
+    }
+
+}
