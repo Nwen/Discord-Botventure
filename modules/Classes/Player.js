@@ -17,6 +17,7 @@ class Player{
     #intelligence;
     #stamina;
     #charisma;
+    #isDoingAQuest;
 
     constructor(discordID, name, maxHealth, maxMana, strength, intelligence, stamina, charisma){
         this.#id = discordID;
@@ -29,6 +30,7 @@ class Player{
         this.#intelligence = intelligence;
         this.#stamina = stamina;
         this.#charisma = charisma;
+        this.#isDoingAQuest = false;
     }
 
     /**
@@ -173,6 +175,10 @@ class Player{
         } else {
             this.removeHealthPoints(-points);
         }
+    }
+
+    changeDoingQuestState(){
+        this.#isDoingAQuest = !this.#isDoingAQuest;
     }
 
 }
