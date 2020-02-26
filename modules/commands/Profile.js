@@ -21,7 +21,7 @@ function DisplayProfile(message, player){
         embed.addField("**--- Caractéristiques ---**", msgCara, false);
     } else {
         embed.setTitle("Nous n'avons pas pu trouver votre personnage");
-        embed.addField("Si ce n'est pas déjà fait, veuillez rejoindre la partie","`:join <Name>`");
+        embed.addField("Si ce n'est pas déjà fait, veuillez rejoindre la partie","`:join <Nom>`");
     }
 
 
