@@ -23,17 +23,17 @@ async function questCommand(message){
      });
 
      collector.on('collect', (reaction) => {
-         if(player != null){
+        if(player != null){
             if(!questIsTaken && player.getOccupationState()){
                 message.channel.send(`Vous avez choisis la quete ${reaction.emoji.name}`);
                 questIsTaken = true;
                 player.setOccupationState(true); // Player is occupied
             }else if(questIsTaken){
                 message.channel.send(`Vous avez déjà choisi une quete`);
-            }else{
-                message.channel.send(`Il semblerait que vous n'avez pas encore créé votre personnage`);
             }
-         }
+        }else{
+            message.channel.send(`Il semblerait que vous n'avez pas encore créé votre personnage`);
+        }
      });
 }
 
