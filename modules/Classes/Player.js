@@ -17,7 +17,7 @@ class Player{
     #intelligence;
     #stamina;
     #charisma;
-    #isDoingAQuest;
+    #isOccupied;
 
     constructor(discordID, name, maxHealth, maxMana, strength, intelligence, stamina, charisma){
         this.#id = discordID;
@@ -30,7 +30,7 @@ class Player{
         this.#intelligence = intelligence;
         this.#stamina = stamina;
         this.#charisma = charisma;
-        this.#isDoingAQuest = false;
+        this.#isOccupied = false;
     }
 
     /**
@@ -177,8 +177,12 @@ class Player{
         }
     }
 
-    changeDoingQuestState(){
-        this.#isDoingAQuest = !this.#isDoingAQuest;
+    getOccupationState(){
+        return this.#isOccupied;
+    }
+
+    setOccupationState(state){
+        this.#isOccupied = state;
     }
 
 }
