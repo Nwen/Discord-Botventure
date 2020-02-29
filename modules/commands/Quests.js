@@ -1,9 +1,10 @@
 const Discord = require("discord.js");
 const PlayerManager = require("../PlayerManager");
+let embed;
 let emojis = ["1️⃣","2️⃣","3️⃣"];
 
 async function questCommand(message){
-    let embed = new Discord.RichEmbed();
+    embed = new Discord.RichEmbed();
     embed.setTitle("**Panneau d'affichage des quêtes**");
     embed.setDescription("Vous retrouverez ici toutes les quêtes disponibles.\nPour séléctionner une quête, cliquez sur la réaction correspondante.")
     embed.addField(":one: Quete 1","General description about a guy who has lost his favorite chicken",false);
