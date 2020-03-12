@@ -13,7 +13,8 @@ function getPlayerByID(id){
 
 function addNewPlayer(message, id, name){
     players[id] = new Player(id, name, DefaultValues.player.maxHealth, DefaultValues.player.maxMana, DefaultValues.player.strength,
-                             DefaultValues.player.intelligence, DefaultValues.player.stamina, DefaultValues.player.charisma);
+                             DefaultValues.player.intelligence, DefaultValues.player.stamina, DefaultValues.player.charisma,
+                             DefaultValues.player.xp, DefaultValues.player.level);
 }
 
 module.exports.getPlayerByID = getPlayerByID;

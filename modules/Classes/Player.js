@@ -1,3 +1,5 @@
+const DefaultValues = require("../DefaultValues");
+
 /**
  * Represents a Player.
  */
@@ -18,8 +20,10 @@ class Player{
     #stamina;
     #charisma;
     #isOccupied;
+    #xp;
+    #level;
 
-    constructor(discordID, name, maxHealth, maxMana, strength, intelligence, stamina, charisma){
+    constructor(discordID, name, maxHealth, maxMana, strength, intelligence, stamina, charisma, xp, level){
         this.#id = discordID;
         this.#name = name;
         this.#maxHealth = maxHealth;
@@ -31,6 +35,8 @@ class Player{
         this.#stamina = stamina;
         this.#charisma = charisma;
         this.#isOccupied = false;
+        this.#xp = xp;
+        this.#level = level;
     }
 
     /**
@@ -135,6 +141,14 @@ class Player{
     }
 
     /**
+     * Returns the player's current xp.
+     * @returns {Number} - Current xp points the player have.
+     */
+    getXp(){
+        return this.#xp;
+    }
+
+    /**
     *  Allow to restore all the health of the entity
     */
     restoreHealthCompletely() {
@@ -183,6 +197,40 @@ class Player{
 
     setOccupationState(state){
         this.#isOccupied = state;
+    }
+
+    setLevel(level){
+        if(level > 0){
+            this.#level = level;
+        }
+    }
+
+    /**
+     * Returns the player's current level.
+     * @returns {Number} - Current level the player have.
+     */
+    getLevel(){
+        return this.#level;
+    }
+
+    getXpToLevelUp(){
+        let xp = DefaultValues.xp[0];
+        return xp;
+    }
+
+    addXp(xp){
+        if(xp>0){
+            this.setXp(this.#xp + xp);
+        }
+    }
+
+    setXp(xp){
+        this.#xp = xp;
+    }
+
+    levelUp(){
+        this.setXp(this.#xp - getXpToLevelUp());
+        this.#level += 1;
     }
 
 }
