@@ -1,6 +1,6 @@
 const PlayerManager = require("../PlayerManager");
 
-const JoinCommand = async function(message, args){
+const StartCommand = async function(message, args){
     console.log(args[1]);
     if (args[1] != null){
         PlayerManager.addNewPlayer(message, message.author.id, args[1]);
@@ -10,4 +10,4 @@ const JoinCommand = async function(message, args){
     
 }
 
-module.exports.JoinCommand = JoinCommand;
+module.exports.StartCommand = StartCommand;
