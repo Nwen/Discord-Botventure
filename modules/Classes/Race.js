@@ -1,4 +1,10 @@
 class Race{
+    /**
+     * 
+     * @param {string} name The name of the race
+     * @param {dictionary} statImportance Define how the stats will increase
+     */
+    
     constructor(name,statImportance){
         this.name = name;
         this.statImportance = statImportance;

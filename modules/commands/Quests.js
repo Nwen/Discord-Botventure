@@ -23,23 +23,24 @@ const showQuests = async function(message,player){
     const filter = (reaction, user) => {
         return (reactionIsCorrect(reaction) && user.id === message.author.id);
         };
-        const collector = reponse.createReactionCollector(filter, {
-        time: 12000
-        });
+        
+    const collector = reponse.createReactionCollector(filter, {
+    time: 12000
+    });
 
-        collector.on('collect', (reaction) => {
-            if(!questIsTaken && !player.getOccupationState()){
-                message.channel.send(`:notebook_with_decorative_cover: ${player.getName()}, vous avez choisis la quete ${reaction.emoji.name}`);
-                questIsTaken = true;
-                player.setOccupationState(true); // Player is occupied
-            }else {
-                message.channel.send(`Vous avez déjà une quete en cours`);
-            }
-        });
+    collector.on('collect', (reaction) => {
+        if(!questIsTaken && !player.getOccupationState()){
+            message.channel.send(`:notebook_with_decorative_cover: ${player.getName()}, vous avez choisis la quete ${reaction.emoji.name}`);
+            questIsTaken = true;
+            player.setOccupationState(true); // Player is occupied
+        }else {
+            message.channel.send(`Vous avez déjà une quete en cours`);
+        }
+    });
 
-        collector.on('end', () =>{
-            reponse.delete();
-        });
+    collector.on('end', () =>{
+        reponse.delete();
+    });
 }
 
 const displayReac = function(message,player){

@@ -7,6 +7,16 @@
                 "profile": "Permet de connaitres les statistiques de votre personnage.\n:drop_of_blood: : Vie | :droplet: : Mana | :muscle: : Force | :brain: Intelligence | :leg: : Endurance | :speaking_head: : Charisme",
                 "ping": "Permet de voir si le Bot est en ligne."
             }
+        },
+        "start":{
+            "Intro1": "Bienvenue, ",
+            "Intro2": " !\nJe suis ici pour t'assister dans ta future aventure.\n:notebook_with_decorative_cover: Si tu as besoin d'aide tu peux recevoir mon aide a tout moment avec la commande \"help\".\nNous allons pourvoir créer ton personnage. Comment veut tu t'appeler ?",
+            "getClass1": " ? C'est un très beau nom.",
+            "getClass2": "\nMaintenant que cela est fait passons à des choses plus sérieuses.",
+            "getClass3": "A quelle race voulez vous appartenir?",
+            "human": "Les humains sont très polyvalent. Ils ont accès à presque toutes les classes et n'ont pas de caractéristique plus élévées que les autres.",
+            "dwarf": "Les nains sont des êtres trapus mais très résistant, et le travail dans les mine les a rendu très fort. Ils ne sont cependant pas très intelligent et leur endurance laisse à désirer.",
+            "elf": "Les elfes sont connus pour leur sagesse et leur savoir inégalé. Ils n'ont cependant pas la condition physique des autres races"
         }
     }
 }
