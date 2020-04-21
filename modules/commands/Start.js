@@ -15,11 +15,24 @@ const StartCommand = async function(message, args){
     getName(message).then(name => getRace(message, name).then(classe => console.log(classe)));
 }
 
+/**
+ * 
+ * @param {message} message Message envoyé par le joueur ce pd (:start)
+ * @return {string} nom Le nom qu'a choisi le joueur pour son personnage
+ */
 async function getName(message){
+
+    /**
+     * On cree un nouvelle Promise basee sur une fonction (ca a l'air d'etre toujours comme ca)
+     * Resolve c'est genre un return de quand y a pas d'erreur
+     * Reject c'est pareil mais s'il y a une erreur
+     */
     return new Promise(function(resolve, reject){
         message.channel.send(Text.commands.start.Intro1 + message.author.username + Text.commands.start.Intro2);
         const collectorName = new Discord.MessageCollector(message.channel, m => (m.author.id == message.author.id && !answers[0]), { time: 60000});
-    
+        
+        //Premier collecteur pour récuperer le contenu du message du joueur
+        //TODO : Ajouter un limiteur de caractères
         collectorName.on('collect', async function(message){
             let fields = [["✅","Confirm this name"],["❎","Nope this wasn't what I wanted"]]
             let confirmName = await displayReac(message,`Votre nom est : ${message.content}`, "Etes vous sur de confirmer ce choix ?",fields,["✅","❎"]);
@@ -47,7 +60,6 @@ async function getName(message){
                     break;
                 }
             });
-            //test(message).then(message.channel.send("bouh"));
         });
     });
     
@@ -89,6 +101,15 @@ async function getRace(message,name){
     });
 }
 
+/**
+ * Creation d'un message Embed et ajouts des reactions si elles sont valides
+ * @param {message} message Commande start
+ * @param {string} title Titre de l'embed
+ * @param {string} description Description de l'embed
+ * @param {2D array} fields Differentes lignes de texte pour decrire ce que font les reactions
+ * @param {array} reactions Reactions a ajouter au message pour que le joueur puisse cliquer dessus
+ * @return {message} msg 
+ */
 const displayReac = async function(message,title,description,fields,reactions){
     let embed = new Discord.RichEmbed();
 
