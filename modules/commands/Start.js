@@ -7,7 +7,6 @@ let answers;
 const StartCommand = async function(message, args){
     answers = false;
     let playerManager = new PlayerManager();
-    
     getName(message).then(name => getRace(message, name).then(race => {playerManager.addPlayer(playerManager.getNewPlayer(message,name,race))}));
 }
 

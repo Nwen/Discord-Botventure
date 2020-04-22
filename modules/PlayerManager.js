@@ -34,7 +34,7 @@ class PlayerManager{
                 return console.log(err.message);
               }
               // get the last insert id
-                resolve(row.name);
+                resolve(new Player(row.id, row.name, row.race, row.maxHealth, row.health, row.maxMana, row.mana, row.strength, row.intelligence, row.stamina, row.charisma, row.xp, row.level));
             });
           })
     }

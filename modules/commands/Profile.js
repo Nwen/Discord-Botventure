@@ -2,13 +2,13 @@ const PlayerManager = require("../PlayerManager");
 const Discord = require("discord.js");
 
 const ProfileCommand = async function(message){
-    let player = PlayerManager.getPlayerByID(message.author.id);
+    let playerManager = new PlayerManager();
+    let player = await playerManager.getPlayerByID(message);
     DisplayProfile(message,player);
 }
 
 function DisplayProfile(message, player){
     let embed = new Discord.RichEmbed();
-    console.log(player);
 
     if(player != null){
         let msgStats = `:drop_of_blood: : ${player.getHealth()} / ${player.getMaxHealth()}  |  **${100*player.getHealth()/player.getMaxHealth()} %**\n
