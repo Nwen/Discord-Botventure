@@ -11,6 +11,7 @@ class Player{
      */
     #id;
     #name;
+    #race
     #maxHealth;
     #health;
     #maxMana;
@@ -23,9 +24,10 @@ class Player{
     #xp;
     #level;
 
-    constructor(discordID, name, maxHealth, maxMana, strength, intelligence, stamina, charisma, xp, level){
+    constructor(discordID, name, race, maxHealth, maxMana, strength, intelligence, stamina, charisma, xp, level){
         this.#id = discordID;
         this.#name = name;
+        this.#race = race;
         this.#maxHealth = maxHealth;
         this.#health = maxHealth;
         this.#maxMana = maxMana;
@@ -90,6 +92,10 @@ class Player{
      */
     getName(){
         return this.#name;
+    }
+
+    getRace(){
+        return this.#race;
     }
 
     /**

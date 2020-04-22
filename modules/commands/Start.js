@@ -1,18 +1,14 @@
 const PlayerManager = require("../PlayerManager");
 const Text = require("../Text/fr");
+const DefaultValues = require("../DefaultValues");
 const Discord = require("discord.js");
 
 let answers;
 const StartCommand = async function(message, args){
-    /**console.log(args[1]);
-    *if (args[1] != null){
-    *    PlayerManager.addNewPlayer(message, message.author.id, args[1]);
-    *} else {
-    *    message.channel.send("Veuillez spécifier le nom de votre personnage : `:join <Nom>`\nPour plus d'informations utilisez la commande `:help`");
-    *}
-    */
-    answers = [false,false];
-    getName(message).then(name => getRace(message, name).then(classe => console.log(classe)));
+    answers = false;
+    let playerManager = new PlayerManager();
+    
+    getName(message).then(name => getRace(message, name).then(race => {playerManager.addPlayer(playerManager.getNewPlayer(message,name,race))}));
 }
 
 /**
@@ -29,14 +25,14 @@ async function getName(message){
      */
     return new Promise(function(resolve, reject){
         message.channel.send(Text.commands.start.Intro1 + message.author.username + Text.commands.start.Intro2);
-        const collectorName = new Discord.MessageCollector(message.channel, m => (m.author.id == message.author.id && !answers[0]), { time: 60000});
+        const collectorName = new Discord.MessageCollector(message.channel, m => (m.author.id == message.author.id && !answers), { time: 60000});
         
         //Premier collecteur pour récuperer le contenu du message du joueur
         //TODO : Ajouter un limiteur de caractères
         collectorName.on('collect', async function(message){
             let fields = [["✅","Confirm this name"],["❎","Nope this wasn't what I wanted"]]
             let confirmName = await displayReac(message,`Votre nom est : ${message.content}`, "Etes vous sur de confirmer ce choix ?",fields,["✅","❎"]);
-            answers[0] = true;
+            answers = true;
     
             const filter = (reaction, user) => {
                 return (reactionIsCorrect(reaction,["✅","❎"]) && user.id === message.author.id);
@@ -55,7 +51,7 @@ async function getName(message){
                     resolve(message.content);
                     break;
                 case "❎":
-                    answers[0] = false;
+                    answers = false;
                     getName(message);
                     break;
                 }
@@ -71,7 +67,6 @@ async function getRace(message,name){
 
         let fields = [["👨 | **Humain**",Text.commands.start.human],["🧝 | **Elfe**",Text.commands.start.elf], ["⛏️ | **Nain**", Text.commands.start.dwarf]]
         let confirmClass = await displayReac(message,`${Text.commands.start.getClass3}`, "Chaque race a des facilités dans certains domaines.\n Choisissez en fonction de votre style de jeu",fields,["👨","🧝","⛏"]);
-        answers[1] = true;
 
         const filter = (reaction, user) => {
             return (reactionIsCorrect(reaction,["👨","🧝","⛏"]) && user.id === message.author.id);
