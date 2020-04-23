@@ -1,4 +1,4 @@
-const PlayerManager = require("../PlayerManager");
+const PlayerManager = require("../Classes/PlayerManager");
 const Text = require("../Text/fr");
 const DefaultValues = require("../DefaultValues");
 const Discord = require("discord.js");
@@ -7,6 +7,9 @@ let answers;
 const StartCommand = async function(message, args){
     answers = false;
     let playerManager = new PlayerManager();
+    if (playerManager.getPlayerByID(message)){
+        return message.channel.send("Vous possédez déjà un personnage");
+    }
     getName(message).then(name => getRace(message, name).then(race => {playerManager.addPlayer(playerManager.getNewPlayer(message,name,race))}));
 }
 

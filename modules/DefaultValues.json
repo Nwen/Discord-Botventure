@@ -1,7 +1,9 @@
 {
     "player":{
         "maxHealth" : 100,
+        "health" : 100,
         "maxMana" : 100,
+        "mana" : 100,
         "strength" : 10,
         "intelligence" : 10,
         "stamina" : 10,

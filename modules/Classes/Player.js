@@ -24,14 +24,14 @@ class Player{
     #xp;
     #level;
 
-    constructor(discordID, name, race, maxHealth, maxMana, strength, intelligence, stamina, charisma, xp, level){
+    constructor(discordID, name, race, maxHealth, health, maxMana, mana, strength, intelligence, stamina, charisma, xp, level){
         this.#id = discordID;
         this.#name = name;
         this.#race = race;
         this.#maxHealth = maxHealth;
-        this.#health = maxHealth;
+        this.#health = health;
         this.#maxMana = maxMana;
-        this.#mana = maxMana;
+        this.#mana = mana;
         this.#strength = strength;
         this.#intelligence = intelligence;
         this.#stamina = stamina;

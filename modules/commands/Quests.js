@@ -1,17 +1,26 @@
 const Discord = require("discord.js");
-const PlayerManager = require("../PlayerManager");
+const PlayerManager = require("../Classes/PlayerManager");
 let embed;
 let emojis = ["1️⃣","2️⃣","3️⃣"];
 
 
-function questCommand(message){
-    let player = PlayerManager.getPlayerByID(message.author.id);
+async function questCommand(message){
+    let playerManager = new PlayerManager();
+    let player = await playerManager.getPlayerByID(message);
 
-    if(player != undefined){
-        showQuests(message,player);
-    }else{
-        message.channel.send(`Il semblerait que vous n'avez pas encore créé votre personnage`);
+    if(player == undefined){
+        return message.channel.send(`Il semblerait que vous n'avez pas encore créé votre personnage`);
     }
+
+    /**
+     * Quand le joueur fait :quest, on teste s'il a déjà une quete en cours
+     * OUI --> on regarde si la quete est finie
+     *      OUI --> On affiche s'il a reussi ou non la quete avec les récompenses et pertes d'HP puis on affiche le tableau des quetes pour qu'il puisse en choisir une autre
+     *      NON --> On affiche le temps restant
+     * NON --> On affiche juste le tableau des quetes
+    */
+    showQuests(message,player);
+
 }
 
 const showQuests = async function(message,player){
@@ -25,7 +34,7 @@ const showQuests = async function(message,player){
         };
         
     const collector = reponse.createReactionCollector(filter, {
-    time: 12000
+    time: 120000
     });
 
     collector.on('collect', (reaction) => {

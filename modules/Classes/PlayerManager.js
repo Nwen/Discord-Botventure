@@ -1,4 +1,4 @@
-const Player = require("./Classes/Player");
+const Player = require("./Player");
 const DefaultValues = require("./DefaultValues");
 const sqlite3 = require("sqlite3").verbose();
 
@@ -8,22 +8,6 @@ let db = new sqlite3.Database('./modules/Data/BotVenture.db', sqlite3.OPEN_READW
     }
     console.log('Connected to the test database.');
   });
-
-let players = {};
-
-/*function getPlayerByID(id){
-    if (players[id] == null){
-        addNewPlayer(id);
-    }
-
-    return players[id];
-}
-
-function addNewPlayer(message, id, name, race){
-    players[id] = new Player(id, name, race, DefaultValues.player.maxHealth, DefaultValues.player.maxMana, DefaultValues.player.strength,
-                             DefaultValues.player.intelligence, DefaultValues.player.stamina, DefaultValues.player.charisma,
-                             DefaultValues.player.xp, DefaultValues.player.level);
-}*/
 
 class PlayerManager{
     
@@ -40,7 +24,7 @@ class PlayerManager{
     }
 
     getNewPlayer(message,name,race){
-        return new Player(message.author.id, name, race, DefaultValues.player.maxHealth, DefaultValues.player.maxMana, DefaultValues.player.strength,
+        return new Player(message.author.id, name, race, DefaultValues.player.maxHealth, DefaultValues.player.health, DefaultValues.player.maxMana, DefaultValues.player.mana, DefaultValues.player.strength,
             DefaultValues.player.intelligence, DefaultValues.player.stamina, DefaultValues.player.charisma,
             DefaultValues.player.xp, DefaultValues.player.level)
     }
@@ -51,6 +35,14 @@ class PlayerManager{
               return console.log(err.message);
             }
           });
+    }
+
+    updatePlayer(player){
+      db.run('UPDATE Players SET id = ?, name = ?, race = ?, maxHealth = ?, health = ?, maxMana = ?, mana = ?, strength = ?, intelligence = ?, stamina = ?, charisma = ?, xp = ?, level = ? WHERE id = ?',[player.getID(),player.getName(),player.getRace(),player.getMaxHealth(),player.getHealth(),player.getMaxMana(),player.getMana(),player.getStrength(),player.getIntelligence(),player.getStamina(),player.getCharisma(),player.getXp(),player.getLevel(), player.getID()],async function(err,row) {
+        if (err) {
+          return console.log(err.message);
+        }
+      });
     }
 }
 //module.exports.getPlayerByID = getPlayerByID;
