@@ -23,3 +23,5 @@ class Quest {
         return this.event;
     }
 }
+
+module.exports = Quest;

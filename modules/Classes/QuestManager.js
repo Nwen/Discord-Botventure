@@ -6,14 +6,13 @@ let db = new sqlite3.Database('./modules/Data/BotVenture.db', sqlite3.OPEN_READW
     if (err) {
       return console.error(err.message);
     }
-    console.log('Connected to the test database.');
   });
 
 
 class QuestManager{
 
     startQuest(player,quest){
-        db.run('UPDATE Players SET id = ?, occupied = ?, startAt = ?, finishAt = ?, difficulty = ?, event = ? WHERE id = ?',[player.getID(),"true", String(new Date().getTime()), String(new Date().getTime() + quest.getDuration()),0,"false", player.getID()]);
+        db.run('UPDATE Quest SET occupied = ?, startAt = ?, finishAt = ?, difficulty = ?, event = ? WHERE id = ?',["true", String(new Date().getTime()), String(new Date().getTime() + quest.getDuration()),0,"false", player.getID()]);
     }
 
     getOccupationState(player){
@@ -30,6 +29,10 @@ class QuestManager{
                 }
             })
         });
+    }
+
+    setUnoccupied(player){
+      db.run('UPDATE Quest SET occupied = ? WHERE id = ?',["false",player.getID()])
     }
 
     getFinishTime(player){

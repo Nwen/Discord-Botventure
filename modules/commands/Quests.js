@@ -1,13 +1,14 @@
 const Discord = require("discord.js");
 const PlayerManager = require("../Classes/PlayerManager");
 const QuestManager = require("../Classes/QuestManager");
+const Quest = require("../Classes/Quest");
 let embed;
 let emojis = ["1️⃣","2️⃣","3️⃣"];
 
+let playerManager = new PlayerManager();
+let questManager = new QuestManager();
 
 async function questCommand(message){
-    let playerManager = new PlayerManager();
-    let questManager = new QuestManager();
     let player = await playerManager.getPlayerByID(message);
 
     if(player == undefined){
@@ -25,7 +26,8 @@ async function questCommand(message){
     if(isOccupied == "true"){
         let finishTime = parseInt(await questManager.getFinishTime(player));
         if(finishTime < (new Date().getTime())){
-            message.channel.send("Vous avez fini votre quête ! GG mais on bosse encore sur les récompenses")
+            message.channel.send("Vous avez fini votre quête ! GG mais on bosse encore sur les récompenses");
+            questManager.setUnoccupied(player);
         } else {
             timeDiff(message, finishTime);
         }
@@ -50,13 +52,9 @@ const showQuests = async function(message,player){
     });
 
     collector.on('collect', (reaction) => {
-        if(!questIsTaken && !player.getOccupationState()){
-            message.channel.send(`:notebook_with_decorative_cover: ${player.getName()}, vous avez choisis la quete ${reaction.emoji.name}`);
-            questIsTaken = true;
-            player.setOccupationState(true); // Player is occupied
-        }else {
-            message.channel.send(`Vous avez déjà une quete en cours`);
-        }
+        message.channel.send(`:notebook_with_decorative_cover: ${player.getName()}, vous avez choisis la quete ${reaction.emoji.name}`);
+        questIsTaken = true;
+        questManager.startQuest(player,new Quest(135000,0,false));
     });
 
     collector.on('end', () =>{

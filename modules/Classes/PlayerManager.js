@@ -6,7 +6,6 @@ let db = new sqlite3.Database('./modules/Data/BotVenture.db', sqlite3.OPEN_READW
     if (err) {
       return console.error(err.message);
     }
-    console.log('Connected to the test database.');
   });
 
 class PlayerManager{
