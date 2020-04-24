@@ -7,7 +7,7 @@ let answers;
 const StartCommand = async function(message, args){
     answers = false;
     let playerManager = new PlayerManager();
-    if (playerManager.getPlayerByID(message)){
+    if (playerManager.getPlayerByID(message) != undefined){
         return message.channel.send("Vous possédez déjà un personnage");
     }
     getName(message).then(name => getRace(message, name).then(race => {playerManager.addPlayer(playerManager.getNewPlayer(message,name,race))}));

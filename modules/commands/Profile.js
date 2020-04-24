@@ -1,4 +1,4 @@
-const PlayerManager = require("../PlayerManager");
+const PlayerManager = require("../Classes/PlayerManager");
 const Discord = require("discord.js");
 
 const ProfileCommand = async function(message){

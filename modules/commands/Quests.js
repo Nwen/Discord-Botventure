@@ -1,11 +1,13 @@
 const Discord = require("discord.js");
 const PlayerManager = require("../Classes/PlayerManager");
+const QuestManager = require("../Classes/QuestManager");
 let embed;
 let emojis = ["1️⃣","2️⃣","3️⃣"];
 
 
 async function questCommand(message){
     let playerManager = new PlayerManager();
+    let questManager = new QuestManager();
     let player = await playerManager.getPlayerByID(message);
 
     if(player == undefined){
@@ -19,7 +21,17 @@ async function questCommand(message){
      *      NON --> On affiche le temps restant
      * NON --> On affiche juste le tableau des quetes
     */
-    showQuests(message,player);
+    let isOccupied = await questManager.getOccupationState(player);
+    if(isOccupied == "true"){
+        let finishTime = parseInt(await questManager.getFinishTime(player));
+        if(finishTime < (new Date().getTime())){
+            message.channel.send("Vous avez fini votre quête ! GG mais on bosse encore sur les récompenses")
+        } else {
+            timeDiff(message, finishTime);
+        }
+    } else {
+        showQuests(message,player);
+    }
 
 }
 
@@ -79,5 +91,12 @@ const reactionIsCorrect = function (reaction) {
     }
     return contains
  }
+
+function timeDiff(message,time){
+    let diff = Math.floor(Math.abs(new Date().getTime()-time)/1000);
+    let secondes = diff % 60;
+    let minutes = (diff-secondes)/60;
+    return message.channel.send(`Il reste encore ${minutes} minutes et ${secondes} secondes de trajet.`)
+}
 
  module.exports.QuestCommand = questCommand;
