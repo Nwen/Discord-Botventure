@@ -18,5 +18,19 @@
             "dwarf": "Les nains sont des êtres trapus mais très résistant, et le travail dans les mine les a rendu très fort. Ils ne sont cependant pas très intelligent et leur endurance laisse à désirer.",
             "elf": "Les elfes sont connus pour leur sagesse et leur savoir inégalé. Ils n'ont cependant pas la condition physique des autres races"
         }
+    },
+    "quests":{
+        "1":{
+            "title": "Trou a rats",
+            "description": "Des rats ont infestés la ville ! Vous devez vous en débarasser."
+        },
+        "2":{
+            "title": "BAGARRE",
+            "description": "Des combats de rue illégaux sont organisés. Goumez les organisateurs."
+        },
+        "3":{
+            "title": "Miaou miaou",
+            "description": "Jean-Corentin a perdu son petit chat. Retrouvez le et vous aurez la récompense."
+        }
     }
 }

@@ -4,6 +4,7 @@ const QuestManager = require("../Classes/QuestManager");
 const Quest = require("../Classes/Quest");
 let embed;
 let emojis = ["1️⃣","2️⃣","3️⃣"];
+let newQuest = [0,0,0];
 
 let playerManager = new PlayerManager();
 let questManager = new QuestManager();
@@ -54,7 +55,7 @@ const showQuests = async function(message,player){
     collector.on('collect', (reaction) => {
         message.channel.send(`:notebook_with_decorative_cover: ${player.getName()}, vous avez choisis la quete ${reaction.emoji.name}`);
         questIsTaken = true;
-        questManager.startQuest(player,new Quest(135000,0,false));
+        questManager.startQuest(player,newQuest[i]);
     });
 
     collector.on('end', () =>{
@@ -66,9 +67,10 @@ const displayReac = function(message,player){
     if(!player.getOccupationState()){
         embed.setTitle("**:notebook_with_decorative_cover: Panneau d'affichage des quêtes :notebook_with_decorative_cover:**");
         embed.setDescription("Vous retrouverez ici toutes les quêtes disponibles.\nPour séléctionner une quête, cliquez sur la réaction correspondante.")
-        embed.addField(":one: Quete 1","General description about a guy who has lost his favorite chicken",false);
-        embed.addField(":two: Quete 2","General description about a guy who has lost his favorite chicken",false);
-        embed.addField(":three: Quete 3","General description about a guy who has lost his favorite chicken",false);
+        for (i = 0; i<3; i++){
+            newQuest[i] = new Quest((i+1)*60,0,false);
+            embed.addField(`${emojis[i]} ${newQuest[i].title}`, `${newQuest[i].description}\n :hourglass_flowing_sand: ${newQuest[i].showDuration()}`)
+        }
         return message.channel.send(embed).then(async msg =>{
             for(i in emojis){
                 await msg.react(emojis[i]);
