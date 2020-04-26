@@ -34,7 +34,7 @@ class PlayerManager{
 
     addPlayer(player){
         db.run('INSERT INTO Players(id, name, race, maxHealth, health, maxMana, mana, strength, intelligence, stamina, charisma, xp, level) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',[player.getID(),player.getName(),player.getRace(),player.getMaxHealth(),player.getHealth(),player.getMaxMana(),player.getMana(),player.getStrength(),player.getIntelligence(),player.getStamina(),player.getCharisma(),player.getXp(),player.getLevel()]);
-        db.run('INSERT INTO Quest(id, occupied, startAt, finishAt, difficulty, event) VALUES(?,?,?,?,?,?)',[player.getID(),false,0,0,0,false]);
+        db.run('INSERT INTO Quest(id, occupied, startAt, finishAt, difficulty, event, rewardXp, successChance) VALUES(?,?,?,?,?,?,?,?)',[player.getID(),false,0,0,0,false,0,0]);
     }
 
     updatePlayer(player){

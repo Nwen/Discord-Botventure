@@ -12,7 +12,7 @@ let db = new sqlite3.Database('./modules/Data/BotVenture.db', sqlite3.OPEN_READW
 class QuestManager{
 
     startQuest(player,quest){
-        db.run('UPDATE Quest SET occupied = ?, startAt = ?, finishAt = ?, difficulty = ?, event = ? WHERE id = ?',["true", String(new Date().getTime()), String(new Date().getTime() + quest.getDuration()),0,"false", player.getID()]);
+        db.run('UPDATE Quest SET occupied = ?, startAt = ?, finishAt = ?, difficulty = ?, event = ?, rewardXp = ? WHERE id = ?',["true", String(new Date().getTime()), String(new Date().getTime() + quest.getDuration()),0,"false", String(quest.rewardXp), player.getID()]);
     }
 
     getOccupationState(player){
@@ -44,6 +44,38 @@ class QuestManager{
 
             if(row){
               resolve(row.finishAt);
+            } else {
+              resolve(undefined);
+            }
+          })
+      });
+    }
+
+    getSuccessChance(player){
+      return new Promise(function(resolve, reject){
+        db.get('SELECT successChance FROM Quest WHERE id = ?',[`${player.getID()}`],async function(err,row) {
+            if (err) {
+              return console.log(err.message);
+            }
+
+            if(row){
+              resolve(row.successChance);
+            } else {
+              resolve(undefined);
+            }
+          })
+      });
+    }
+
+    getRewardXp(player){
+      return new Promise(function(resolve, reject){
+        db.get('SELECT rewardXp FROM Quest WHERE id = ?',[`${player.getID()}`],async function(err,row) {
+            if (err) {
+              return console.log(err.message);
+            }
+
+            if(row){
+              resolve(row.rewardXp);
             } else {
               resolve(undefined);
             }

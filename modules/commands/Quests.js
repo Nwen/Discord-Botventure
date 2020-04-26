@@ -27,7 +27,15 @@ async function questCommand(message){
     if(isOccupied == "true"){
         let finishTime = parseInt(await questManager.getFinishTime(player));
         if(finishTime < (new Date().getTime())){
-            message.channel.send("Vous avez fini votre quête ! GG mais on bosse encore sur les récompenses");
+            let successChance = await questManager.getSuccessChance(player);
+            if (successChance > Math.floor(Math.random() * 100)){
+                let rewardXp = await questManager.getRewardXp(player);
+                message.channel.send(`Vous avez gagné ${rewardXp} point d'expérience pour avoir fini cette quete !`)
+                player.addXp(message,rewardXp);
+                playerManager.updatePlayer(player);
+            } else {
+                message.channel.send("Déso pas déso, les mobs t'ont brisés les os")
+            }
             questManager.setUnoccupied(player);
         } else {
             timeDiff(message, finishTime);
@@ -55,7 +63,7 @@ const showQuests = async function(message,player){
     collector.on('collect', (reaction) => {
         message.channel.send(`:notebook_with_decorative_cover: ${player.getName()}, vous avez choisis la quete ${reaction.emoji.name}`);
         questIsTaken = true;
-        questManager.startQuest(player,newQuest[i]);
+        questManager.startQuest(player,newQuest[0]);
     });
 
     collector.on('end', () =>{
@@ -68,8 +76,8 @@ const displayReac = function(message,player){
         embed.setTitle("**:notebook_with_decorative_cover: Panneau d'affichage des quêtes :notebook_with_decorative_cover:**");
         embed.setDescription("Vous retrouverez ici toutes les quêtes disponibles.\nPour séléctionner une quête, cliquez sur la réaction correspondante.")
         for (i = 0; i<3; i++){
-            newQuest[i] = new Quest((i+1)*60,0,false);
-            embed.addField(`${emojis[i]} ${newQuest[i].title}`, `${newQuest[i].description}\n :hourglass_flowing_sand: ${newQuest[i].showDuration()}`)
+            newQuest[i] = new Quest(1,false);
+            embed.addField(`${emojis[i]} ${newQuest[i].title}`, `${newQuest[i].description}\n :hourglass_flowing_sand: ${newQuest[i].showDuration()} | :star: ${newQuest[i].rewardXp} | :warning: ${newQuest[i].getDifficulty()}`)
         }
         return message.channel.send(embed).then(async msg =>{
             for(i in emojis){

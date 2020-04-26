@@ -1,4 +1,4 @@
-const DefaultValues = require("../DefaultValues");
+const DefaultValues = require("../DefaultValues.json");
 
 /**
  * Represents a Player.
@@ -28,17 +28,17 @@ class Player{
         this.#id = discordID;
         this.#name = name;
         this.#race = race;
-        this.#maxHealth = maxHealth;
-        this.#health = health;
-        this.#maxMana = maxMana;
-        this.#mana = mana;
-        this.#strength = strength;
-        this.#intelligence = intelligence;
-        this.#stamina = stamina;
-        this.#charisma = charisma;
+        this.#maxHealth = parseInt(maxHealth);
+        this.#health = parseInt(health);
+        this.#maxMana = parseInt(maxMana);
+        this.#mana = parseInt(mana);
+        this.#strength = parseInt(strength);
+        this.#intelligence = parseInt(intelligence);
+        this.#stamina = parseInt(stamina);
+        this.#charisma = parseInt(charisma);
         this.#isOccupied = false;
-        this.#xp = xp;
-        this.#level = level;
+        this.#xp = parseInt(xp);
+        this.#level = parseInt(level);
     }
 
     /**
@@ -219,24 +219,36 @@ class Player{
         return this.#level;
     }
 
-    getXpToLevelUp(){
-        let xp = DefaultValues.xp[0];
+    getXpToLevelUp(level){
+        let xp = DefaultValues.xp[level-1];
+        console.log(xp);
         return xp;
     }
 
-    addXp(xp){
-        if(xp>0){
-            this.setXp(this.#xp + xp);
+    addXp(message,xp){
+        let xpParsed = parseInt(xp);
+        if(xpParsed>0){
+            this.setXp(this.#xp + xpParsed);
+            console.log(this.getXp());
+            if(this.hasEnoughExperienceToLevelUp(this.getLevel())){
+                console.log("ouais les levels");
+                this.levelUp(message);
+            }
         }
+    }
+
+    hasEnoughExperienceToLevelUp(level) {
+        return (this.getXp() >= this.getXpToLevelUp(level));
     }
 
     setXp(xp){
         this.#xp = xp;
     }
 
-    levelUp(){
-        this.setXp(this.#xp - getXpToLevelUp());
+    levelUp(message){
+        this.setXp(this.#xp - this.getXpToLevelUp(this.getLevel()));
         this.#level += 1;
+        message.channel.send(`Vous avez gagné un niveau !`);
     }
 
 }

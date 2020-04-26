@@ -13,7 +13,7 @@ function DisplayProfile(message, player){
     if(player != null){
         let msgStats = `:drop_of_blood: : ${player.getHealth()} / ${player.getMaxHealth()}  |  **${100*player.getHealth()/player.getMaxHealth()} %**\n
                         :droplet: : ${player.getMana()} / ${player.getMaxMana()}  |  **${100*player.getMana()/player.getMaxMana()} %**`;
-        let msgXp = `Niveau : ${player.getLevel()} | ${player.getXp()}/${player.getXpToLevelUp()} :star:`
+        let msgXp = `Niveau : ${player.getLevel()} | ${player.getXp()}/${player.getXpToLevelUp(player.getLevel())} :star:`
 
         let msgCara = `:muscle: : ${player.getStrength()} | :brain: : ${player.getIntelligence()}\n
                        :leg: : ${player.getStamina()}  | :speaking_head: : ${player.getCharisma()}`;

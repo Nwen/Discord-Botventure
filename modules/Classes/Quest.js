@@ -1,18 +1,24 @@
 const Text = require("../Text/fr.json");
 
 class Quest {
+
+    duration;
+    difficulty;
+    event;
+    title;
+    description;
+    rewardXp;
+    successChance;
+
     /**
      * 
      * @param {int} duration Durée de la quête, en secondes
-     * @param {int} difficulty Difficulté de la quete
      * @param {bool} event Définit si un event peut survenir durant la quete
      */
-    constructor(duration,difficulty,event){
+    constructor(duration,event){
         this.duration = duration * 1000;
-        this.difficulty = difficulty;
+        this.difficulty = 0;
         this.event = event;
-        this.title = "";
-        this.description = "";
         this.getRandomQuest();
     }
 
@@ -27,7 +33,16 @@ class Quest {
     }
 
     getDifficulty(){
-        return this.difficulty;
+        switch(this.difficulty){
+            case 0:
+                return "Facile";
+            case 1:
+                return "Normale";
+            case 2:
+                return "Difficile";
+            default:
+                return "Non définie";
+        };
     }
 
     getEvent(){
@@ -35,9 +50,12 @@ class Quest {
     }
 
     getRandomQuest(){
-        let rand = Math.floor(Math.random() * 3)+1;
-        this.title = Text.quests[String(rand)].title;
-        this.description = Text.quests[String(rand)].description;
+        let randomQuest = Math.floor(Math.random() * 3)+1;
+        this.title = Text.quests[String(randomQuest)].title;
+        this.description = Text.quests[String(randomQuest)].description;
+        this.difficulty = Math.floor(Math.random() * 3);
+        this.rewardXp = Math.floor(Math.random() * 15)+100 + this.difficulty*10;
+        this.successChance = 95 - this.difficulty*5;
     }
 }
 
