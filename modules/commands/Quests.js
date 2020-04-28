@@ -63,7 +63,20 @@ const showQuests = async function(message,player){
     collector.on('collect', (reaction) => {
         message.channel.send(`:notebook_with_decorative_cover: ${player.getName()}, vous avez choisis la quete ${reaction.emoji.name}`);
         questIsTaken = true;
-        questManager.startQuest(player,newQuest[0]);
+        switch(reaction.emoji.name){
+            case "1️⃣":
+                questManager.startQuest(player,newQuest[0]);
+                break;
+            case "2️⃣":
+                questManager.startQuest(player,newQuest[1]);
+                break;
+            case "3️⃣":
+                questManager.startQuest(player,newQuest[2]);
+                break;
+            default:
+                break;
+        }
+        
     });
 
     collector.on('end', () =>{
