@@ -1,4 +1,5 @@
 const Text = require("../Text/fr.json");
+const DefaultValues = require("../DefaultValues");
 
 class Quest {
 
@@ -15,11 +16,30 @@ class Quest {
      * @param {int} duration Durée de la quête, en secondes
      * @param {bool} event Définit si un event peut survenir durant la quete
      */
-    constructor(duration,event){
+    constructor(duration,difficulty,canEventOccure,title,description,successChance,rewardXp,rewardItem,hpLoss){
         this.duration = duration * 1000;
-        this.difficulty = 0;
-        this.event = event;
-        this.getRandomQuest();
+        this.difficulty = difficulty;
+        this.canEventOccure = canEventOccure;
+        this.title = title;
+        this.description = description;
+        this.successChance = successChance;
+        this.rewardXp = rewardXp;
+        this.rewardItem = rewardItem;
+        this.hpLoss = hpLoss;
+    }
+
+    static getRandomQuest(playerLevel){
+        let rdDuration = (Math.floor(Math.random() * 2)+1)*10*60 + Math.floor(Math.random() * 10)*60 + Math.floor(Math.random() * 60); //random duration between 10:00 and 29:59 minutes
+        let rdDifficulty = Math.floor(Math.random() * 3);
+        let rdCanEventOccure = Math.random() < 0.9 ? false : true;
+        let randomQuest = Math.floor(Math.random() * 3)+1;
+        let rdTitle = Text.quests[String(randomQuest)].title;
+        let rdDescription = Text.quests[String(randomQuest)].description;
+        let rdSuccessChance = 95 - this.difficulty*5;
+        let rdRewardXp = DefaultValues.xpPerQuest[playerLevel-1] - 10 + Math.floor(Math.random()*11);
+        let rdRewardItem = null;
+        let rdHpLoss = 15 - Math.floor(Math.random()*10);
+        return new Quest(rdDuration,rdDifficulty,rdCanEventOccure,rdTitle,rdDescription,rdSuccessChance,rdRewardXp,rdRewardItem,rdHpLoss);
     }
 
     getDuration(){
@@ -47,15 +67,6 @@ class Quest {
 
     getEvent(){
         return this.event;
-    }
-
-    getRandomQuest(){
-        let randomQuest = Math.floor(Math.random() * 3)+1;
-        this.title = Text.quests[String(randomQuest)].title;
-        this.description = Text.quests[String(randomQuest)].description;
-        this.difficulty = Math.floor(Math.random() * 3);
-        this.rewardXp = Math.floor(Math.random() * 15)+100 + this.difficulty*10;
-        this.successChance = 95 - this.difficulty*5;
     }
 }
 

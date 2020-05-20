@@ -5,6 +5,7 @@
   "main": "app.js",
   "author": "",
   "dependencies": {
+    "canvas": "^2.6.1",
     "discord.js": "^11.5.1",
     "sqlite3": "^4.1.1"
   },

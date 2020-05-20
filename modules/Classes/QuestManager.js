@@ -12,7 +12,20 @@ let db = new sqlite3.Database('./modules/Data/BotVenture.db', sqlite3.OPEN_READW
 class QuestManager{
 
     startQuest(player,quest){
-        db.run('UPDATE Quest SET occupied = ?, startAt = ?, finishAt = ?, difficulty = ?, event = ?, rewardXp = ? WHERE id = ?',["true", String(new Date().getTime()), String(new Date().getTime() + quest.getDuration()),0,"false", String(quest.rewardXp), player.getID()]);
+        db.run('UPDATE Quest SET occupied = ?, startAt = ?, finishAt = ?, duration = ?, difficulty = ?, canEventOccure = ?,title = ?, description = ?, rewardXp = ?, rewardItem = ?, hpLoss = ? WHERE id = ?',
+        ["true", String(new Date().getTime()), String(new Date().getTime() + quest.getDuration()), String(quest.duration), String(quest.difficulty), String(quest.canEventOccure), String(quest.title), String(quest.description), String(quest.rewardXp), String(quest.rewardItem),String(quest.hpLoss),player.getID()]);
+    }
+
+    getCurrentQuest(message, player){
+      return new Promise(function(resolve,reject){
+        db.get("SELECT * FROM Quest WHERE id = ?", [`${message.author.id}`], async function(err,row){
+          if(row){
+            resolve(new Quest(row.duration,rox.difficulty,row.canEventOccure,row.title,row.description,row.succesChance,row.rewardXp,row.rewardItem,row.hpLoss));
+          } else {
+            resolve(undefined);
+          }
+        });
+      });
     }
 
     getOccupationState(player){

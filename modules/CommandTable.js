@@ -2,7 +2,7 @@ const Ping = require('./commands/Ping');
 const Start = require("./commands/Start");
 const Profile = require("./commands/Profile");
 const Help = require("./commands/Help");
-const Quests = require("./commands/Quests")
+const Quests = require("./commands/Quests");
 
 const CommandTable = new Map(
     [
@@ -10,7 +10,7 @@ const CommandTable = new Map(
         ["start", Start.StartCommand],
         ["profile", Profile.ProfileCommand],
         ["help", Help.HelpCommand],
-        ["quest", Quests.QuestCommand]
+        ["quest", Quests.QuestCommand],
     ]
 );
 
