@@ -29,16 +29,18 @@ async function questCommand(message){
         let finishTime = parseInt(await questManager.getFinishTime(player));
 
         if(finishTime < (new Date().getTime())){
-            let successChance = await questManager.getSuccessChance(player);
+            let quest = await questManager.getCurrentQuest(message);
+            //let successChance = await questManager.getSuccessChance(player);
 
-            if (successChance > Math.floor(Math.random() * 100)){
-                let rewardXp = await questManager.getRewardXp(player);
-                message.channel.send(`Vous avez gagné ${rewardXp} point d'expérience pour avoir fini cette quete !`);
-                player.addXp(message,rewardXp);
+            if (quest.successChance > Math.floor(Math.random() * 100)){
+                //let rewardXp = await questManager.getRewardXp(player);
+                message.channel.send(`Vous avez gagné ${quest.rewardXp} point d'expérience pour avoir fini cette quete !`);
+                player.addXp(message,quest.rewardXp);
                 playerManager.updatePlayer(player);
             } else {
-                
-                message.channel.send("Déso pas déso, les mobs t'ont brisés les os");
+                message.channel.send(`Les monstres t'ont bien niqué ta daronne, tu as perdu ${quest.hpLoss} pv`);
+                player.removeHealthPoints(quest.hpLoss);
+                playerManager.updatePlayer(player);
             }
 
             questManager.setUnoccupied(player);

@@ -5,11 +5,9 @@ class Quest {
 
     duration;
     difficulty;
-    event;
     title;
     description;
     rewardXp;
-    successChance;
 
     /**
      * 

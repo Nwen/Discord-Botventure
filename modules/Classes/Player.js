@@ -168,9 +168,10 @@ class Player{
      * @param points - The amount of health points to remove. Must be a Number.
      */
     removeHealthPoints(points) {
-        if (points >= 0) {
-            this.health -= parseInt(points);
-            if (this.health <= 0) {
+        //console.log(parseInt(points));
+        if (parseInt(points) >= 0) {
+            this.#health -= parseInt(points);
+            if (this.#health <= 0) {
                 //this.kill()
             }
         } else {

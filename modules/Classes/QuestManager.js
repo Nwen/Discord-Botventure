@@ -16,11 +16,11 @@ class QuestManager{
         ["true", String(new Date().getTime()), String(new Date().getTime() + quest.getDuration()), String(quest.duration), String(quest.difficulty), String(quest.canEventOccure), String(quest.title), String(quest.description), String(quest.rewardXp), String(quest.rewardItem),String(quest.hpLoss),player.getID()]);
     }
 
-    getCurrentQuest(message, player){
+    getCurrentQuest(message){
       return new Promise(function(resolve,reject){
         db.get("SELECT * FROM Quest WHERE id = ?", [`${message.author.id}`], async function(err,row){
           if(row){
-            resolve(new Quest(row.duration,rox.difficulty,row.canEventOccure,row.title,row.description,row.succesChance,row.rewardXp,row.rewardItem,row.hpLoss));
+            resolve(new Quest(row.duration,row.difficulty,row.canEventOccure,row.title,row.description,row.succesChance,row.rewardXp,row.rewardItem,row.hpLoss));
           } else {
             resolve(undefined);
           }
