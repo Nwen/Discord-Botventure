@@ -1,13 +1,16 @@
 const Discord = require("discord.js");
 const PlayerManager = require("../Classes/PlayerManager");
 const QuestManager = require("../Classes/QuestManager");
+const InventoryManager = require("../Classes/InventoryManager");
 const Quest = require("../Classes/Quest");
+const Inventory = require("../Classes/Inventory");
 let embed;
 let emojis = ["1️⃣","2️⃣","3️⃣"];
 let newQuest = [0,0,0];
 
 let playerManager = new PlayerManager();
 let questManager = new QuestManager();
+let inventoryManager = new InventoryManager();
 
 async function questCommand(message){
     let player = await playerManager.getPlayerByID(message);
@@ -31,12 +34,11 @@ async function questCommand(message){
         if(finishTime < (new Date().getTime())){
             let quest = await questManager.getCurrentQuest(message);
             //let successChance = await questManager.getSuccessChance(player);
-
-            if (quest.successChance > Math.floor(Math.random() * 100)){
+            if (quest.successChance > Math.random() * 100){
                 //let rewardXp = await questManager.getRewardXp(player);
                 message.channel.send(`Vous avez gagné ${quest.rewardXp} point d'expérience pour avoir fini cette quete !`);
-                player.addXp(message,quest.rewardXp);
-                playerManager.updatePlayer(player);
+                xpReward(message,player,quest);
+                itemReward(message);
             } else {
                 message.channel.send(`Les monstres t'ont bien niqué ta daronne, tu as perdu ${quest.hpLoss} pv`);
                 player.removeHealthPoints(quest.hpLoss);
@@ -90,6 +92,18 @@ const showQuests = async function(message,player){
     collector.on('end', () =>{
         reponse.delete();
     });
+}
+
+const xpReward = function(message,player,quest){
+    player.addXp(message,quest.rewardXp);
+    playerManager.updatePlayer(player);
+}
+
+const itemReward = async function(message){
+    let inventory = await inventoryManager.getInventory(message);
+    let rdItem = Math.floor(Math.random() * 3)+1;
+    inventory.addItem(rdItem);
+    inventoryManager.updateInventory(message, inventory);
 }
 
 const displayReac = function(message,player){

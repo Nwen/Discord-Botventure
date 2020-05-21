@@ -1,0 +1,19 @@
+{
+    "_comment":"Ce fichier sert de référence pour la génération d'objet aléatoire lors de la fin d'une quete. Les objets sont classés par Tier puis par niveau de puissance (le niveau moyen que le joueur devrait avoir pour s'en équipper).",
+    "common":{
+        "1":{
+            "010":1,
+            "011":2,
+            "012":3
+        }
+    },
+    "rare":{
+
+    },
+    "epic":{
+
+    },
+    "legendary":{
+
+    }
+}

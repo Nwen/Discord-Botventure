@@ -27,13 +27,13 @@ class Quest {
     }
 
     static getRandomQuest(playerLevel){
-        let rdDuration = (Math.floor(Math.random() * 2)+1)*10*60 + Math.floor(Math.random() * 10)*60 + Math.floor(Math.random() * 60); //random duration between 10:00 and 29:59 minutes
+        let rdDuration = /*(Math.floor(Math.random() * 2)+1)*10*60 + Math.floor(Math.random() * 10)*60 + Math.floor(Math.random() * 60)*/ 1; //random duration between 10:00 and 29:59 minutes
         let rdDifficulty = Math.floor(Math.random() * 3);
         let rdCanEventOccure = Math.random() < 0.9 ? false : true;
         let randomQuest = Math.floor(Math.random() * 3)+1;
         let rdTitle = Text.quests[String(randomQuest)].title;
         let rdDescription = Text.quests[String(randomQuest)].description;
-        let rdSuccessChance = 95 - this.difficulty*5;
+        let rdSuccessChance = 195 - rdDifficulty*5;
         let rdRewardXp = DefaultValues.xpPerQuest[playerLevel-1] - 10 + Math.floor(Math.random()*11);
         let rdRewardItem = null;
         let rdHpLoss = 15 - Math.floor(Math.random()*10);
