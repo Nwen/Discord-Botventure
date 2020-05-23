@@ -17,6 +17,12 @@ class Inventory{
             this.slots[emptySlotIndex] = itemID;
         }
     }
+
+    equipItem(player, slot){
+        buffer = this.slots[slot];
+        this.slots[slot] = player.ietmEquipped;
+        player.ietmEquipped = buffer;
+    }
 }
 
 module.exports = Inventory;

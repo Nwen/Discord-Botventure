@@ -57,7 +57,7 @@ async function questCommand(message){
 }
 
 const showQuests = async function(message,player){
-    embed = new Discord.RichEmbed();
+    embed = new Discord.MessageEmbed();
 
     let reponse = await displayReac(message,player);
     let questIsTaken = false;

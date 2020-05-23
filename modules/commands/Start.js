@@ -108,7 +108,7 @@ async function getRace(message,name){
  * @return {message} msg 
  */
 const displayReac = async function(message,title,description,fields,reactions){
-    let embed = new Discord.RichEmbed();
+    let embed = new Discord.MessageEmbed();
 
     embed.setTitle(title);
     embed.setDescription(description);

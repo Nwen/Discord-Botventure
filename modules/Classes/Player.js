@@ -24,7 +24,7 @@ class Player{
     #xp;
     #level;
 
-    constructor(discordID, name, race, maxHealth, health, maxMana, mana, strength, intelligence, stamina, charisma, xp, level){
+    constructor(discordID, name, race, maxHealth, health, maxMana, mana, strength, intelligence, stamina, charisma, xp, level, itemEquipped){
         this.#id = discordID;
         this.#name = name;
         this.#race = race;
@@ -39,6 +39,7 @@ class Player{
         this.#isOccupied = false;
         this.#xp = parseInt(xp);
         this.#level = parseInt(level);
+        this.itemEquipped = parseInt(itemEquipped);
     }
 
     /**

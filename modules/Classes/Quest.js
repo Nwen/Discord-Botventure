@@ -27,7 +27,7 @@ class Quest {
     }
 
     static getRandomQuest(playerLevel){
-        let rdDuration = /*(Math.floor(Math.random() * 2)+1)*10*60 + Math.floor(Math.random() * 10)*60 + Math.floor(Math.random() * 60)*/ 1; //random duration between 10:00 and 29:59 minutes
+        let rdDuration = (Math.floor(Math.random() * 2)+1)*10*60 + Math.floor(Math.random() * 10)*60 + Math.floor(Math.random() * 60); //random duration between 10:00 and 29:59 minutes
         let rdDifficulty = Math.floor(Math.random() * 3);
         let rdCanEventOccure = Math.random() < 0.9 ? false : true;
         let randomQuest = Math.floor(Math.random() * 3)+1;
