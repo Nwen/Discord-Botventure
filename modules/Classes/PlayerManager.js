@@ -39,7 +39,7 @@ class PlayerManager{
     }
 
     updatePlayer(player){
-      db.run('UPDATE Players SET id = ?, name = ?, race = ?, maxHealth = ?, health = ?, maxMana = ?, mana = ?, strength = ?, intelligence = ?, stamina = ?, charisma = ?, xp = ?, level = ?, itemEquipped = ? WHERE id = ?',[player.getID(),player.getName(),player.getRace(),player.getMaxHealth(),player.getHealth(),player.getMaxMana(),player.getMana(),player.getStrength(),player.getIntelligence(),player.getStamina(),player.getCharisma(),player.getXp(),player.getLevel(), player.getID(), player.itemEquipped]);
+      db.run('UPDATE Players SET id = ?, name = ?, race = ?, maxHealth = ?, health = ?, maxMana = ?, mana = ?, strength = ?, intelligence = ?, stamina = ?, charisma = ?, xp = ?, level = ?, itemEquipped = ? WHERE id = ?', [player.getID(),player.getName(),player.getRace(),player.getMaxHealth(),player.getHealth(),player.getMaxMana(),player.getMana(),player.getStrength(),player.getIntelligence(),player.getStamina(),player.getCharisma(),player.getXp(),player.getLevel(), player.itemEquipped, player.getID()]);
     }
 }
 //module.exports.getPlayerByID = getPlayerByID;

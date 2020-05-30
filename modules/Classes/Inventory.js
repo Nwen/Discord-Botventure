@@ -19,9 +19,13 @@ class Inventory{
     }
 
     equipItem(player, slot){
-        buffer = this.slots[slot];
-        this.slots[slot] = player.ietmEquipped;
-        player.ietmEquipped = buffer;
+        let buffer = this.slots[slot];
+        this.slots[slot] = player.itemEquipped;
+        player.itemEquipped = buffer;
+    }
+
+    dropItem(slot){
+        this.slots[slot] = 0;
     }
 }
 

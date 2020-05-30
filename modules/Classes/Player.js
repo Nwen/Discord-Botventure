@@ -9,36 +9,36 @@ class Player{
      * Declaring private variables.
      * Use to prevent scripts from modifying the internal data.
      */
-    #id;
-    #name;
-    #race
-    #maxHealth;
-    #health;
-    #maxMana;
-    #mana;
-    #strength;
-    #intelligence;
-    #stamina;
-    #charisma;
-    #isOccupied;
-    #xp;
-    #level;
+    id;
+    name;
+    race
+    maxHealth;
+    health;
+    maxMana;
+    mana;
+    strength;
+    intelligence;
+    stamina;
+    charisma;
+    isOccupied;
+    xp;
+    level;
 
     constructor(discordID, name, race, maxHealth, health, maxMana, mana, strength, intelligence, stamina, charisma, xp, level, itemEquipped){
-        this.#id = discordID;
-        this.#name = name;
-        this.#race = race;
-        this.#maxHealth = parseInt(maxHealth);
-        this.#health = parseInt(health);
-        this.#maxMana = parseInt(maxMana);
-        this.#mana = parseInt(mana);
-        this.#strength = parseInt(strength);
-        this.#intelligence = parseInt(intelligence);
-        this.#stamina = parseInt(stamina);
-        this.#charisma = parseInt(charisma);
-        this.#isOccupied = false;
-        this.#xp = parseInt(xp);
-        this.#level = parseInt(level);
+        this.id = discordID;
+        this.name = name;
+        this.race = race;
+        this.maxHealth = parseInt(maxHealth);
+        this.health = parseInt(health);
+        this.maxMana = parseInt(maxMana);
+        this.mana = parseInt(mana);
+        this.strength = parseInt(strength);
+        this.intelligence = parseInt(intelligence);
+        this.stamina = parseInt(stamina);
+        this.charisma = parseInt(charisma);
+        this.isOccupied = false;
+        this.xp = parseInt(xp);
+        this.level = parseInt(level);
         this.itemEquipped = parseInt(itemEquipped);
     }
 
@@ -48,7 +48,7 @@ class Player{
      */
     setMaxHealth(maxHealth) {
         if (maxHealth > 0) {
-            this.#maxHealth = maxHealth;
+            this.maxHealth = maxHealth;
         }
     }
 
@@ -57,7 +57,7 @@ class Player{
      * @returns {Number} - How much health this Entity can have.
      */
     getMaxHealth() {
-        return this.#maxHealth;
+        return this.maxHealth;
     }
 
     /**
@@ -66,7 +66,7 @@ class Player{
      */
     setHealth(health) {
         if (health >= 0) {
-            this.#health = health;
+            this.health = health;
         }
     }
 
@@ -75,7 +75,7 @@ class Player{
      * @returns {Number} - How much mana this Entity can have.
      */
     getMaxMana(){
-        return this.#maxMana;
+        return this.maxMana;
     }
 
 
@@ -84,7 +84,7 @@ class Player{
      * @returns {Number} - The player's id
      */
     getID(){
-        return this.#id;
+        return this.id;
     }
 
     /**
@@ -92,11 +92,11 @@ class Player{
      * @returns {String} - The player's name.
      */
     getName(){
-        return this.#name;
+        return this.name;
     }
 
     getRace(){
-        return this.#race;
+        return this.race;
     }
 
     /**
@@ -104,7 +104,7 @@ class Player{
      * @returns {Number} - The current amount of health this Entity has.
      */
     getHealth() {
-        return this.#health;
+        return this.health;
     }
 
     /**
@@ -112,7 +112,7 @@ class Player{
      * @returns {Number} - The current amount of mana this Entity has.
      */
     getMana(){
-        return this.#mana;
+        return this.mana;
     }
 
     /**
@@ -120,7 +120,7 @@ class Player{
      * @returns {Number} - Base strength points the player have.
      */
     getStrength() {
-        return this.#strength;
+        return this.strength;
     }
 
     /**
@@ -128,7 +128,7 @@ class Player{
      * @returns {Number} - Base intelligence points the player have.
      */
     getIntelligence(){
-        return this.#intelligence;
+        return this.intelligence;
     }
 
     /**
@@ -136,7 +136,7 @@ class Player{
      * @returns {Number} - Base stamina points the player have.
      */
     getStamina(){
-        return this.#stamina;
+        return this.stamina;
     }
 
     /**
@@ -144,7 +144,7 @@ class Player{
      * @returns {Number} - Base charisma points the player have.
      */
     getCharisma(){
-        return this.#charisma;
+        return this.charisma;
     }
 
     /**
@@ -152,7 +152,7 @@ class Player{
      * @returns {Number} - Current xp points the player have.
      */
     getXp(){
-        return this.#xp;
+        return this.xp;
     }
 
     /**
@@ -171,8 +171,8 @@ class Player{
     removeHealthPoints(points) {
         //console.log(parseInt(points));
         if (parseInt(points) >= 0) {
-            this.#health -= parseInt(points);
-            if (this.#health <= 0) {
+            this.health -= parseInt(points);
+            if (this.health <= 0) {
                 //this.kill()
             }
         } else {
@@ -200,16 +200,16 @@ class Player{
     }
 
     getOccupationState(){
-        return this.#isOccupied;
+        return this.isOccupied;
     }
 
     setOccupationState(state){
-        this.#isOccupied = state;
+        this.isOccupied = state;
     }
 
     setLevel(level){
         if(level > 0){
-            this.#level = level;
+            this.level = level;
         }
     }
 
@@ -218,7 +218,7 @@ class Player{
      * @returns {Number} - Current level the player have.
      */
     getLevel(){
-        return this.#level;
+        return this.level;
     }
 
     getXpToLevelUp(level){
@@ -230,7 +230,7 @@ class Player{
     addXp(message,xp){
         let xpParsed = parseInt(xp);
         if(xpParsed>0){
-            this.setXp(this.#xp + xpParsed);
+            this.setXp(this.xp + xpParsed);
             console.log(this.getXp());
             if(this.hasEnoughExperienceToLevelUp(this.getLevel())){
                 console.log("ouais les levels");
@@ -244,12 +244,12 @@ class Player{
     }
 
     setXp(xp){
-        this.#xp = xp;
+        this.xp = xp;
     }
 
     levelUp(message){
-        this.setXp(this.#xp - this.getXpToLevelUp(this.getLevel()));
-        this.#level += 1;
+        this.setXp(this.xp - this.getXpToLevelUp(this.getLevel()));
+        this.level += 1;
         message.channel.send(`Vous avez gagné un niveau !`);
     }
 
