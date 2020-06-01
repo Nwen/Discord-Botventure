@@ -1,5 +1,7 @@
 const InventoryManager = require("../Classes/InventoryManager");
 const PlayerManager = require("../Classes/PlayerManager");
+const Inventory = require('../Classes/Inventory');
+const Player = require("../Classes/Player");
 const ItemList = require("../Data/ItemList.json");
 const Discord = require("discord.js");
 
@@ -17,6 +19,12 @@ const InventoryCommand = async function(message){
     DisplayInventory(message,inventory);
 }
 
+/**
+ * Envoie un message affichant l'inventaire du joueur.
+ * Ajoute des réactions a ce message pour que le joueur puisse intéragir avec son inventaire.
+ * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+ * @param {Inventory} inventory Inventaire du joueur.
+ */
 async function DisplayInventory(message, inventory){
     let player = await playerManager.getPlayerByID(message);
     embed = new Discord.MessageEmbed();
@@ -36,6 +44,12 @@ async function DisplayInventory(message, inventory){
     slotInterraction(message,inventory,player);
 }
 
+/**
+ * Renvoie le contenu d'un emplacement de l'inventaire.
+ * @param {Inventory} inventory Inventaire du joueur
+ * @param {Number} slot Emplacement de l'inventaire
+ * @returns {String} Texte indiquant le contenu de l'emplacement.
+ */
 function DisplaySlot(inventory,slot){
     if(inventory.slots[slot] == 0){
         return "**Empty slot**";
@@ -44,6 +58,12 @@ function DisplaySlot(inventory,slot){
     }
 }
 
+/**
+ * Renvoie un booléen indiquant si l'émoji sert ou non à intéragir avec le programme.
+ * @param {Discord.MessageReaction} reaction Reaction soumise par le joueur
+ * @param {Array<Discord.Emoji>} emojis Tableau contenant les émojis qui servent a l'intéraction.
+ * @returns {Boolean} Booléen indiquant l'utilité de l'émoji.
+ */
 const reactionIsCorrect = function (reaction,emojis) {
     let contains = false;
 
@@ -55,6 +75,13 @@ const reactionIsCorrect = function (reaction,emojis) {
     return contains
  }
 
+ /**
+  * Ajoute les réactions au message envoyé par le bot.
+  * Gère les effets de ces réactions.
+  * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+  * @param {Inventory} inventory Inventaire du joueur.
+  * @param {Player} player Objet Player associé au joueur.
+  */
 async function slotInterraction(message,inventory,player){
     for(reac of invReact){
         await msgInventory.react(reac);
@@ -78,6 +105,15 @@ async function slotInterraction(message,inventory,player){
     });
 }
 
+/**
+ * Actualise le message affichant l'inventaire pour indiquer au joueur qu'il cherche à équipper un objet.
+ * Actualise les réactions pour que le joueur puisse choisir un emplacement.
+ * Quand le joueur clique sur une réaction, cela remplace son objet équippé par l'objet dans l'emplacement sélectionné
+ * et remplace l'objet dans l'emplacement par celui précedemment équipé.
+ * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+ * @param {Inventory} inventory Inventaire du joueur.
+ * @param {Player} player Objet Player associé au joueur.
+ */
 async function EquipItem(message,inventory,player){
     await msgInventory.reactions.removeAll();
     embed.setDescription("Pour s'équipper d'un objet, cliquez sur la réaction correspondante.\nPar exemple, pour s'équipper de l'objet dans le slot 1, cliquez sur 1️⃣\n\n**--- Inventaire ---**")
@@ -132,6 +168,13 @@ async function EquipItem(message,inventory,player){
     });
 }
 
+/**
+ * Actualise le message affichant l'inventaire pour indiquer au joueur qu'il cherche à équipper un objet.
+ * Actualise les réactions pour que le joueur puisse choisir un emplacement.
+ * Quand le joueur clique sur une réaction cela va remplacer l'emplacement sélectionné par un emplacement vide.
+ * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+ * @param {Inventory} inventory Inventaire du joueur.
+ */
 async function DropItem(message,inventory){
     await msgInventory.reactions.removeAll();
     embed.setDescription("Pour jeter un objet, cliquez sur la réaction correspondante.\nPar exemple, pour jeter l'objet dans le slot 1, cliquez sur 1️⃣\n:warning: Attention cette opération est irreversible ! :warning:\n\n**--- Inventaire ---**")

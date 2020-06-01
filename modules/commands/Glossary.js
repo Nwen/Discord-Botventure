@@ -12,6 +12,11 @@ async function GlossaryCommand(message, args){
     DisplayGlossary(message);
 }
 
+/**
+ * Edite le message envoyé par le bot avec les informations sur le items en fonction de la page.
+ * Ajoute les reactions pour que le joueur puisse naviguer plus facilement entre les pages.
+ * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+ */
 async function DisplayGlossary(message){
     embed = new Discord.MessageEmbed();
     embed.setTitle(`Page n° ${pageNumber}`);
@@ -55,16 +60,30 @@ async function DisplayGlossary(message){
     });
 }
 
+/**
+ * Décrémente le numéro de la page et affiche la page correspondante.
+ * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+ */
 async function PrevPage(message){
     pageNumber -= 1;
     DisplayGlossary(message);
 }
 
+/**
+ * Incrémente le numéro de la page et affiche la page correspondate.
+ * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+ */
 async function NextPage(message){
     pageNumber +=1;
     DisplayGlossary(message);
 }
 
+/**
+ * Renvoie un booléen indiquant si l'émoji sert ou non à intéragir avec le programme.
+ * @param {Discord.MessageReaction} reaction Reaction soumise par le joueur
+ * @param {Array<Discord.Emoji>} emojis Tableau contenant les émojis qui servent a l'intéraction.
+ * @returns {Boolean} Booléen indiquant l'utilité de l'émoji.
+ */
 const reactionIsCorrect = function (reaction,emojis) {
     let contains = false;
 

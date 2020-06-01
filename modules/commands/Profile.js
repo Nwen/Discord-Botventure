@@ -1,4 +1,5 @@
 const PlayerManager = require("../Classes/PlayerManager");
+const Player = require('../Classes/Player');
 const ItemList = require("../Data/ItemList.json");
 const Discord = require("discord.js");
 
@@ -8,6 +9,11 @@ const ProfileCommand = async function(message){
     DisplayProfile(message,player);
 }
 
+/**
+ * Affiche les informations liées au joueur.
+ * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+ * @param {Player} player Objet Player associé au joueur.
+ */
 function DisplayProfile(message, player){
     let embed = new Discord.MessageEmbed();
 

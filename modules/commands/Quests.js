@@ -3,6 +3,7 @@ const PlayerManager = require("../Classes/PlayerManager");
 const QuestManager = require("../Classes/QuestManager");
 const InventoryManager = require("../Classes/InventoryManager");
 const Quest = require("../Classes/Quest");
+const Player = require('../Classes/Player');
 const Inventory = require("../Classes/Inventory");
 let embed;
 let emojis = ["1️⃣","2️⃣","3️⃣"];
@@ -12,6 +13,10 @@ let playerManager = new PlayerManager();
 let questManager = new QuestManager();
 let inventoryManager = new InventoryManager();
 
+/**
+ * Affiche le tableau des quêtes le temps restant ou le résulat de la quête en cours en fonction de l'état du joueur.
+ * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+ */
 async function questCommand(message){
     let player = await playerManager.getPlayerByID(message);
 
@@ -56,6 +61,11 @@ async function questCommand(message){
 
 }
 
+/**
+ * Affiche le tableau des quêtes et gère la prise de quêtes.
+ * @param {Discord.Message} message Message contenant la commande envoyée par le joueur
+ * @param {Player} player Objet Player associé au joueur.
+ */
 const showQuests = async function(message,player){
     embed = new Discord.MessageEmbed();
 
@@ -94,11 +104,21 @@ const showQuests = async function(message,player){
     });
 }
 
+/**
+ * Ajoute l'xp de la récompense de quête au joueur et actualise la base de données.
+ * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+ * @param {Player} player Objet Player associé au joueur.
+ * @param {Quest} quest Quête que le joueur vient de terminer.
+ */
 const xpReward = function(message,player,quest){
     player.addXp(message,quest.rewardXp);
     playerManager.updatePlayer(player);
 }
 
+/**
+ * Ajoute un objet aléatoire à l'inventaire du joueur puis actualise la base de données.
+ * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+ */
 const itemReward = async function(message){
     let inventory = await inventoryManager.getInventory(message);
     let rdItem = Math.floor(Math.random() * 3)+1;
@@ -106,6 +126,11 @@ const itemReward = async function(message){
     inventoryManager.updateInventory(message, inventory);
 }
 
+/**
+ * Affiche le panneau de quêtes et ajoute les réactions associées. Renvoie le message envoyé.
+ * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+ * @param {Player} player Objet Player associé au joueur.
+ */
 const displayReac = function(message,player){
     if(!player.getOccupationState()){
         embed.setTitle("**:notebook_with_decorative_cover: Panneau d'affichage des quêtes :notebook_with_decorative_cover:**");
@@ -129,6 +154,11 @@ const displayReac = function(message,player){
 
 };
 
+/**
+ * Renvoie un booléen indiquant si l'émoji sert ou non à intéragir avec le programme.
+ * @param {Discord.MessageReaction} reaction Reaction soumise par le joueur
+ * @returns {Boolean} Booléen indiquant l'utilité de l'émoji.
+ */
 const reactionIsCorrect = function (reaction) {
     let contains = false;
 
@@ -140,6 +170,12 @@ const reactionIsCorrect = function (reaction) {
     return contains
  }
 
+ /**
+  * Renvoie le temps restant avant la fin de la quête sous forme de texte lisible par le joueur.
+  * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+  * @param {Number} time Date et heure à laquelle se termine la quête (millisecondes).
+  * @returns {String} Texte indiquant le temps restant avant la fin de la quête.
+  */
 function timeDiff(message,time){
     let diff = Math.floor(Math.abs(new Date().getTime()-time)/1000);
     let secondes = diff % 60;

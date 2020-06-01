@@ -10,7 +10,8 @@ class Quest {
     rewardXp;
 
     /**
-     * 
+     * Récupération d'une quête à partir de la base de données.
+     * ! Pour créer une nouvelle quête utilisez la fonction getRandomQuest()
      * @param {int} duration Durée de la quête, en secondes
      * @param {bool} event Définit si un event peut survenir durant la quete
      */
@@ -26,6 +27,11 @@ class Quest {
         this.hpLoss = hpLoss;
     }
 
+    /**
+     * Crée une nouvelle quête avec des paramètres aléatoire
+     * @param {Number} playerLevel Niveau du joueur commençant la quête
+     * @returns {Quest} Nouvelle quête
+     */
     static getRandomQuest(playerLevel){
         let rdDuration = (Math.floor(Math.random() * 2)+1)*10*60 + Math.floor(Math.random() * 10)*60 + Math.floor(Math.random() * 60); //random duration between 10:00 and 29:59 minutes
         let rdDifficulty = Math.floor(Math.random() * 3);
@@ -40,16 +46,25 @@ class Quest {
         return new Quest(rdDuration,rdDifficulty,rdCanEventOccure,rdTitle,rdDescription,rdSuccessChance,rdRewardXp,rdRewardItem,rdHpLoss);
     }
 
+    /**
+     * Renvoie la durée de la quête en millisecondes
+     */
     getDuration(){
         return this.duration;
     }
 
+    /**
+     * Renvoie un texte affichant la durée de la quête en minutes et en secondes.
+     */
     showDuration(){
         let secondes = Math.floor((this.duration/1000))%60;
         let minutes = (Math.floor((this.duration/1000)) - secondes)/60;
         return `${minutes} min et ${secondes} s`;
     }
 
+    /**
+     * Renvoie un texte qui affiche la difficulté de la quête.
+     */
     getDifficulty(){
         switch(this.difficulty){
             case 0:
@@ -63,6 +78,9 @@ class Quest {
         };
     }
 
+    /**
+     * Renvoie un booléen indiquant la possibilité qu'un évènement se produise
+     */
     getEvent(){
         return this.event;
     }

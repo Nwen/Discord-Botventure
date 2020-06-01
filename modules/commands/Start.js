@@ -1,4 +1,5 @@
 const PlayerManager = require("../Classes/PlayerManager");
+const Discord = require('discord.js');
 const Text = require("../Text/fr");
 const DefaultValues = require("../DefaultValues");
 const Discord = require("discord.js");
@@ -14,9 +15,10 @@ const StartCommand = async function(message, args){
 }
 
 /**
- * 
- * @param {message} message Message envoyé par le joueur ce pd (:start)
- * @return {string} nom Le nom qu'a choisi le joueur pour son personnage
+ * Creation d'un dialogue indiquant au joueur de choisir un nom.
+ * Récupération du nom grâce à un nouveau message envoyé par le joueur.
+ * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+ * @return {String} Nom choisi par le joueur.
  */
 async function getName(message){
 
@@ -63,6 +65,12 @@ async function getName(message){
     
 }
 
+/**
+ * Envoie un message pour laisser au joueur le choix de sa race.
+ * @param {Discord.Message} message Message contenant la commande envoyée par le joueur.
+ * @param {String} name Nom choisi précédemment par le joueur.
+ * @returns {Promise<String>} Race choisi par le joueur.
+ */
 async function getRace(message,name){
     return new Promise(async function(resolve,reject){
         message.channel.send(`${name} ${Text.commands.start.getClass1} ${Text.commands.start.getClass2}`);
@@ -100,12 +108,12 @@ async function getRace(message,name){
 
 /**
  * Creation d'un message Embed et ajouts des reactions si elles sont valides
- * @param {message} message Commande start
- * @param {string} title Titre de l'embed
- * @param {string} description Description de l'embed
- * @param {2D array} fields Differentes lignes de texte pour decrire ce que font les reactions
- * @param {array} reactions Reactions a ajouter au message pour que le joueur puisse cliquer dessus
- * @return {message} msg 
+ * @param {Discord.Message} message Commande start
+ * @param {String} title Titre de l'embed
+ * @param {String} description Description de l'embed
+ * @param {Array<Array>} fields Differentes lignes de texte pour decrire ce que font les reactions
+ * @param {Array<Discord.Emoji>} reactions Reactions a ajouter au message pour que le joueur puisse cliquer dessus
+ * @return {Discord.Message} Message envoyé.
  */
 const displayReac = async function(message,title,description,fields,reactions){
     let embed = new Discord.MessageEmbed();
@@ -123,6 +131,11 @@ const displayReac = async function(message,title,description,fields,reactions){
     });
 };
 
+/**
+ * Renvoie un booléen indiquant si l'émoji sert ou non à intéragir avec le programme.
+ * @param {Discord.MessageReaction} reaction Reaction soumise par le joueur
+ * @returns {Boolean} Booléen indiquant l'utilité de l'émoji.
+ */
 const reactionIsCorrect = function (reaction, reactions) {
     for (reac in reactions) {
        if (reactions[reac] == reaction.emoji.name)
