@@ -39,7 +39,7 @@ async function DisplayProfile(message, player){
         const canvas = Canvas.createCanvas(1300,740);
         const ctx = canvas.getContext('2d');
 
-        const background = await Canvas.loadImage('./modules/Tests/HUD2-min.png');
+        const background = await Canvas.loadImage('./modules/Images/Profile.png');
         ctx.drawImage(background,0,0, canvas.width, canvas.height);
 
         const avatar = await Canvas.loadImage(message.author.displayAvatarURL({format: 'jpg'}));
