@@ -91,6 +91,7 @@ async function DisplayProfile(message, player){
     } else {
         embed.setTitle("Nous n'avons pas pu trouver votre personnage");
         embed.addField("Si ce n'est pas déjà fait, veuillez commencer l'aventure","`:start`");
+        message.channel.send(embed);
     }
 
 
