@@ -2,7 +2,6 @@ const PlayerManager = require("../Classes/PlayerManager");
 const Discord = require('discord.js');
 const Text = require("../Text/fr");
 const DefaultValues = require("../DefaultValues");
-const Discord = require("discord.js");
 
 let answers;
 const StartCommand = async function(message, args){
@@ -91,15 +90,15 @@ async function getRace(message,name){
                 switch(reaction.emoji.name){
                     case "👨":
                         message.channel.send("Classe enregistrée ! Vous êtes désormais un humain");
-                        resolve("Humain");
+                        resolve("human");
                         break;
                     case "🧝":
                         message.channel.send("Classe enregistrée ! Vous êtes désormais un elfe");
-                        resolve("Elfe");
+                        resolve("elf");
                         break;
                     case "⛏️":
                         message.channel.send("Classe enregistrée ! Vous êtes désormais un nain");
-                        resolve("Nain");
+                        resolve("dwarf");
                         break;
                     }
         });

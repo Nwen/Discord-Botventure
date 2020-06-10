@@ -5,6 +5,7 @@ const Help = require("./commands/Help");
 const Quests = require("./commands/Quests");
 const Inventory = require("./commands/Inventory");
 const Glossary = require("./commands/Glossary");
+const TestImage = require("./Tests/testImage");
 
 const CommandTable = new Map(
     [
@@ -14,7 +15,8 @@ const CommandTable = new Map(
         ["help", Help.HelpCommand],
         ["quest", Quests.QuestCommand],
         ["inventory", Inventory.InventoryCommand],
-        ["glossary", Glossary.GlossaryCommand]
+        ["glossary", Glossary.GlossaryCommand],
+        ["test", TestImage.TestImageCommand]
     ]
 );
 
