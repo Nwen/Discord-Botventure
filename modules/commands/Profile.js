@@ -45,44 +45,91 @@ async function DisplayProfile(message, player){
         const avatar = await Canvas.loadImage(message.author.displayAvatarURL({format: 'jpg'}));
         ctx.drawImage(avatar, 48, 60, 230, 230);
 
+        ctx.imageSmoothingEnabled = false;
+        const sword = await Canvas.loadImage("./modules/Tests/Sword.png");
+        ctx.drawImage(sword,690,55,140,140);
+
         ctx.font = '60px sans-serif';
         ctx.fillStyle = '#000000';
         ctx.textAlign = "center";
         ctx.textBaseline = 'middle';
 
         //Name of the player
-        ctx.fillText(player.getName(),467,60)
+        ctx.fillText(player.getName(),465,60);
 
+        ctx.font = '45px sans-serif';
+        ctx.fillText(`Niveau : ${player.getLevel()}`, 465, 130);
+        
+        ctx.font = '30px sans-serif';
+        //Health, mana and xp bars
+        ctx.beginPath();
+        ctx.strokeStyle="red";   
+        ctx.lineWidth="2";   
+        ctx.rect(315,170,300,40);
+        ctx.stroke();
+        ctx.closePath();
+        ctx.fillStyle="red";
+        ctx.fillRect(315,170,(300*player.getHealth()/player.getMaxHealth()),40);
+
+        ctx.beginPath();
+        ctx.strokeStyle="blue";     
+        ctx.rect(315,220,300,40);
+        ctx.stroke();
+        ctx.closePath();
+        ctx.fillStyle="blue";
+        ctx.fillRect(315,220,(300*player.getMana()/player.getMaxMana()),40);
+
+        ctx.beginPath();
+        ctx.strokeStyle="green";   
+        ctx.rect(315,270,300,40);
+        ctx.stroke();
+        ctx.closePath();
+        ctx.fillStyle="green";
+        ctx.fillRect(315,270,(300*player.getXp()/player.getXpToLevelUp(player.getLevel())),40);
+
+        //Value in the health bar
+        ctx.fillStyle = '#000000';
+        ctx.fillText(`${player.getHealth()} / ${player.getMaxHealth()}`,455,190);
+        ctx.fillText(`${player.getMana()} / ${player.getMaxMana()}`,455,240);
+        ctx.fillText(`${player.getXp()} / ${player.getXpToLevelUp(player.getLevel())}`,455,290);
+
+        //Name of the equipped item
+        ctx.fillText(ItemList[player.itemEquipped].name, 1025, 58);
+
+        ctx.textAlign = "left";
+        wrapText(ctx, ItemList[player.itemEquipped].description,870,125,350,40);
+
+        ctx.textAlign = "center";
         ctx.font = '50px sans-serif';
         /* Text for total stats */
-        ctx.fillText(player.getStrength() + Races[player.getRace()].getMod("strength",player) + ItemList[player.itemEquipped].bonus["strength"], totalCoord[0][0], totalCoord[0][1]);
-        ctx.fillText(player.getIntelligence() + Races[player.getRace()].getMod("intelligence",player) + ItemList[player.itemEquipped].bonus["intelligence"], totalCoord[1][0], totalCoord[1][1]);
-        ctx.fillText(player.getStamina() + Races[player.getRace()].getMod("stamina",player) + ItemList[player.itemEquipped].bonus["stamina"], totalCoord[2][0], totalCoord[2][1]);
-        ctx.fillText(player.getCharisma() + Races[player.getRace()].getMod("charisma",player) + ItemList[player.itemEquipped].bonus["charisma"], totalCoord[3][0], totalCoord[3][1]);
+        ctx.fillText(player.getStrength() + Races[player.getRace()].getMod("strength",player.getLevel()) + ItemList[player.itemEquipped].bonus["strength"], totalCoord[0][0], totalCoord[0][1]);
+        ctx.fillText(player.getIntelligence() + Races[player.getRace()].getMod("intelligence",player.getLevel()) + ItemList[player.itemEquipped].bonus["intelligence"], totalCoord[1][0], totalCoord[1][1]);
+        ctx.fillText(player.getStamina() + Races[player.getRace()].getMod("stamina",player.getLevel()) + ItemList[player.itemEquipped].bonus["stamina"], totalCoord[2][0], totalCoord[2][1]);
+        ctx.fillText(player.getCharisma() + Races[player.getRace()].getMod("charisma",player.getLevel()) + ItemList[player.itemEquipped].bonus["charisma"], totalCoord[3][0], totalCoord[3][1]);
 
         ctx.font = '40px sans-serif';
         /* Text for bonus strength*/
         ctx.fillText(player.getStrength(), bonusCoord[0][0], bonusCoord[0][1]);
         ctx.fillText("/", bonusCoord[1][0], bonusCoord[1][1]);
-        ctx.fillText(Races[player.getRace()].getMod("strength",player), bonusCoord[2][0], bonusCoord[2][1]);
+        ctx.fillText(Races[player.getRace()].getMod("strength",player.getLevel()), bonusCoord[2][0], bonusCoord[2][1]);
         ctx.fillText(ItemList[player.itemEquipped].bonus["strength"], bonusCoord[3][0], bonusCoord[3][1]);
         
         /* Text for bonus intelligence*/
         ctx.fillText(player.getIntelligence(), bonusCoord[4][0], bonusCoord[4][1]);
         ctx.fillText("/", bonusCoord[5][0], bonusCoord[5][1]);
-        ctx.fillText(Races[player.getRace()].getMod("intelligence",player), bonusCoord[6][0], bonusCoord[6][1]);
+        ctx.fillText(Races[player.getRace()].getMod("intelligence",player.getLevel()), bonusCoord[6][0], bonusCoord[6][1]);
         ctx.fillText(ItemList[player.itemEquipped].bonus["intelligence"], bonusCoord[7][0], bonusCoord[7][1]);
         
         /* Text for bonus stamina*/
         ctx.fillText(player.getStamina(), bonusCoord[8][0], bonusCoord[8][1]);
         ctx.fillText("/", bonusCoord[9][0], bonusCoord[9][1]);
-        ctx.fillText(Races[player.getRace()].getMod("stamina",player), bonusCoord[10][0], bonusCoord[10][1]);
+        ctx.fillText(Races[player.getRace()].getMod("stamina",player.getLevel()), bonusCoord[10][0], bonusCoord[10][1]);
         ctx.fillText(ItemList[player.itemEquipped].bonus["stamina"], bonusCoord[11][0], bonusCoord[11][1]);
         
         /* Text for bonus Charisma*/
         ctx.fillText(player.getCharisma(), bonusCoord[12][0], bonusCoord[12][1]);
         ctx.fillText("/", bonusCoord[13][0], bonusCoord[13][1]);
-        ctx.fillText(Races[player.getRace()].getMod("charisma",player), bonusCoord[14][0], bonusCoord[14][1]);
+        ctx.fillText(Races[player.getRace()].getMod("charisma",player.getLevel()), bonusCoord[14][0], bonusCoord[14][1]);
         ctx.fillText(ItemList[player.itemEquipped].bonus["charisma"], bonusCoord[15][0], bonusCoord[15][1]);
 
         
@@ -97,5 +144,25 @@ async function DisplayProfile(message, player){
 
     //message.channel.send(embed);
 }
+
+function wrapText(context, text, x, y, maxWidth, lineHeight) {
+    var words = text.split(' ');
+    var line = '';
+
+    for(var n = 0; n < words.length; n++) {
+      var testLine = line + words[n] + ' ';
+      var metrics = context.measureText(testLine);
+      var testWidth = metrics.width;
+      if (testWidth > maxWidth && n > 0) {
+        context.fillText(line, x, y);
+        line = words[n] + ' ';
+        y += lineHeight;
+      }
+      else {
+        line = testLine;
+      }
+    }
+    context.fillText(line, x, y);
+  }
 
 module.exports.ProfileCommand = ProfileCommand;

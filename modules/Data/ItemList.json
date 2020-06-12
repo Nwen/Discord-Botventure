@@ -2,37 +2,37 @@
     "1":{
         "name":"Vieille épée",
         "description":"Vieille épée rouillée",
-        "bonus":{"health":0,"mana":0,"strength":2,"intelligence":0,"stamina":0,"charisma":0},
+        "bonus":{"maxHealth":0,"mana":0,"strength":2,"intelligence":0,"stamina":0,"charisma":0},
         "summary":":muscle: +2"
     },
     "2":{
         "name":"Hache émoussée",
         "description":"Le trachant de cette hache n'est définitivement plus comme avant",
-        "bonus":{"health":3,"mana":0,"strength":0,"intelligence":0,"stamina":0,"charisma":0},
+        "bonus":{"maxHealth":3,"mana":0,"strength":0,"intelligence":0,"stamina":0,"charisma":0},
         "summary":"🩸 +2"
     },
     "3":{
         "name":"Arc usé",
         "description":"Un vieil arc dont la corde n'est plus vraiment tendue",
-        "bonus":{"health":0,"mana":0,"strength":0,"intelligence":0,"stamina":3,"charisma":0},
+        "bonus":{"maxHealth":0,"mana":0,"strength":0,"intelligence":0,"stamina":3,"charisma":0},
         "summary":"🦵 +2"
     },
     "4":{
         "name":"Vieille épée",
         "description":"Vieille épée rouillée",
-        "bonus":{"health":0,"mana":0,"strength":2,"intelligence":0,"stamina":0,"charisma":0},
+        "bonus":{"maxHealth":0,"mana":0,"strength":2,"intelligence":0,"stamina":0,"charisma":0},
         "summary":":muscle: +2"
     },
     "5":{
         "name":"Hache émoussée",
         "description":"Le trachant de cette hache n'est définitivement plus comme avant",
-        "bonus":{"health":3,"mana":0,"strength":0,"intelligence":0,"stamina":0,"charisma":0},
+        "bonus":{"maxHealth":3,"mana":0,"strength":0,"intelligence":0,"stamina":0,"charisma":0},
         "summary":"🩸 +2"
     },
     "6":{
         "name":"Arc usé",
         "description":"Un vieil arc dont la corde n'est plus vraiment tendue",
-        "bonus":{"health":0,"mana":0,"strength":0,"intelligence":0,"stamina":3,"charisma":0},
+        "bonus":{"maxHealth":0,"mana":0,"strength":0,"intelligence":0,"stamina":3,"charisma":0},
         "summary":"🦵 +2"
     }
 }

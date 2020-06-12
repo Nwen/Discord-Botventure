@@ -1,3 +1,5 @@
+const ItemList = require("../Data/ItemList.json");
+
 class Inventory{
 
     /**
@@ -32,6 +34,10 @@ class Inventory{
     equipItem(player, slot){
         let buffer = this.slots[slot];
         this.slots[slot] = player.itemEquipped;
+        player.health -= ItemList[player.itemEquipped].bonus["maxHealth"];
+        player.health += ItemList[buffer].bonus["maxHealth"];
+        player.maxHealth -= ItemList[player.itemEquipped].bonus["maxHealth"];
+        player.maxHealth += ItemList[buffer].bonus["maxHealth"];
         player.itemEquipped = buffer;
     }
 

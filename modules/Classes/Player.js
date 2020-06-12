@@ -1,4 +1,6 @@
 const DefaultValues = require("../DefaultValues.json");
+const ItemList = require("../Data/ItemList.json");
+const Races = require("./Race");
 
 /**
  * Represents a Player.
@@ -53,11 +55,19 @@ class Player{
     }
 
     /**
-     * Returns this Entity's maximum health value.
+     * Returns this Entity's flat maximum health value.
      * @returns {Number} - How much health this Entity can have.
      */
     getMaxHealth() {
         return this.maxHealth;
+    }
+
+    getMaxHealthWithBonus(){
+        return this.maxHealth + Races[this.race].getMod("maxHealth",this.level) + ItemList[this.itemEquipped].bonus["maxHealth"];
+    }
+
+    getMaxManaWithBonus(){
+        return this.maxMana;
     }
 
     /**

@@ -9,14 +9,14 @@ class Race{
         this.statImportance = statImportance;
     }
 
-    getMod(stat,player){
+    getMod(stat,level){
         switch(this.statImportance[stat]){
             case -1:
-                return Math.floor(Math.sin(player.getLevel()*Math.PI/16) + player.getLevel()/2);
+                return Math.floor(Math.sin(level*Math.PI/16) + level/2);
             case 0:
-                return Math.floor(Math.sin(player.getLevel()*Math.PI/12) + player.getLevel()/2);
+                return Math.floor(Math.sin(level*Math.PI/12) + level/2);
             case 1:
-                return Math.floor(Math.sin(player.getLevel()*Math.PI/8) + player.getLevel()/2);
+                return Math.floor(Math.sin(level*Math.PI/8) + level/2);
         }
     }
 }
